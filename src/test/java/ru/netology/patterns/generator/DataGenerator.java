@@ -1,3 +1,4 @@
+cat > src\test\java\ru\netology\patterns\generator\DataGenerator.java << 'EOF'
 package ru.netology.patterns.generator;
 
 import com.github.javafaker.Faker;
@@ -7,7 +8,6 @@ import ru.netology.patterns.data.UserInfo;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class DataGenerator {
@@ -67,7 +67,8 @@ public class DataGenerator {
             return new UserInfo(
                     generateCity(),
                     faker.name().lastName() + " " + faker.name().firstName(),
-                    faker.phoneNumber().phoneNumber()
+                    faker.phoneNumber().phoneNumber(),
+                    generateDate(3)  // <-- Добавлен четвёртый параметр
             );
         }
     }
@@ -81,3 +82,4 @@ public class DataGenerator {
         String phone;
     }
 }
+EOF
