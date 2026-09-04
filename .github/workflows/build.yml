@@ -21,18 +21,30 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Check artifacts exist
+        run: |
+          ls -la artifacts/
+          file artifacts/app-replan-delivery.jar
+          file artifacts/app-ibank.jar
+
       - name: Start SUT for Task 1 (Delivery)
         run: |
-          java -jar artifacts/app-replan-delivery.jar &
-          sleep 15
+          nohup java -jar artifacts/app-replan-delivery.jar &
+          sleep 20
 
       - name: Start SUT for Task 2 (API)
         run: |
-          java -jar artifacts/app-ibank.jar -P:profile=test &
-          sleep 15
+          nohup java -jar artifacts/app-ibank.jar -P:profile=test &
+          sleep 20
+
+      - name: Check if SUT is running
+        run: |
+          curl -v http://localhost:9999 || true
+          netstat -tlnp || true
 
       - name: Run tests in headless mode
-        run: ./gradlew clean test -Dselenide.headless=true
+        run: |
+          ./gradlew clean test -Dselenide.headless=true -Dselenide.browser=chrome
 
       - name: Upload test reports
         if: always()

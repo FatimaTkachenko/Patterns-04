@@ -15,8 +15,11 @@ public class DeliveryTest {
 
     @BeforeEach
     void setUp() {
-        // Headless режим для CI
-        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "false"));
+        // Настройка Selenide для CI
+        Configuration.browser = System.getProperty("selenide.browser", "chrome");
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "true"));
+        Configuration.browserSize = "1920x1080";
+        Configuration.timeout = 10000; // 10 секунд
         Configuration.holdBrowserOpen = false;
         
         userInfo = DataGenerator.generateUserInfo();
