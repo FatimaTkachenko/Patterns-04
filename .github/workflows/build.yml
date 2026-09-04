@@ -30,6 +30,12 @@ jobs:
           curl -L -o artifacts/app-ibank.jar https://github.com/netology-code/aqa-homeworks/raw/api-ci/patterns/app-ibank.jar
           ls -la artifacts/
 
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser
+          chromium-browser --version
+
       - name: Start SUT for Task 1 (Delivery)
         run: |
           nohup java -jar artifacts/app-replan-delivery.jar &
