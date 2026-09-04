@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+}
+
+group 'ru.netology'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Selenide для UI-тестов
+    testImplementation 'com.codeborne:selenide:6.16.0'
+
+    // REST-assured для API-тестов
+    testImplementation 'io.rest-assured:rest-assured:5.5.0'
+    testImplementation 'com.google.code.gson:gson:2.10.1'
+
+    // Faker для генерации данных
+    testImplementation 'com.github.javafaker:javafaker:1.0.2'
+
+    // Lombok для упрощения кода
+    testImplementation 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    // JUnit 5
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+
+    // Selenium (транзитивная зависимость для Selenide)
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.9.0'
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'selenide.headless', System.getProperty('selenide.headless')
+}
