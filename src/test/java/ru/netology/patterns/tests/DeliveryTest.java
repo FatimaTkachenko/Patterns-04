@@ -15,7 +15,10 @@ public class DeliveryTest {
 
     @BeforeEach
     void setUp() {
-        Configuration.holdBrowserOpen = true;
+        // Headless режим для CI
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "false"));
+        Configuration.holdBrowserOpen = false;
+        
         userInfo = DataGenerator.generateUserInfo();
         open("http://localhost:9999");
     }
