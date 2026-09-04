@@ -1,18 +1,18 @@
-[![Build Status](https://github.com/FatimaTkachenko/Patterns-04/actions/workflows/build.yml/badge.svg)](https://github.com/FatimaTkachenko/Patterns-04/actions/workflows/build.yml) 
- 
-# Patterns Homework 
- 
-## Задача №1: Заказ доставки карты (изменение даты) 
-Автотест для проверки функции перепланирования встречи. 
- 
-## Задача №2: Тестовый режим 
-Автотесты для API создания пользователей в тестовом режиме. 
- 
-## Время, затраченное на тестирование 
-- Ручное тестирование (минут): 30 
-- Автоматизация (минут): 90 
- 
-## Как запустить 
-1. Запустить SUT для первой задачи: `java -jar artifacts/app-replan-delivery.jar` 
-2. Запустить SUT для второй задачи: `java -jar artifacts/app-ibank.jar -P:profile=test` 
-3. Выполнить тесты: `./gradlew clean test` 
+[![Build Status](https://github.com/FatimaTkachenko/Patterns-04/actions/workflows/build.yml/badge.svg)](https://github.com/FatimaTkachenko/Patterns-04/actions/workflows/build.yml)
+
+# Patterns Homework
+
+## ╟рфрўр ╣1: ╟рърч фюёЄртъш ърЁЄ√ (шчьхэхэшх фрЄ√)
+└тЄюЄхёЄ фы  яЁютхЁъш ЇєэъЎшш яхЁхяырэшЁютрэш  тёЄЁхўш.
+
+## ╟рфрўр ╣2: ╥хёЄют√щ Ёхцшь
+└тЄюЄхёЄ√ фы  API ёючфрэш  яюы№чютрЄхыхщ т ЄхёЄютюь Ёхцшьх.
+
+## ┬Ёхь , чрЄЁрўхээюх эр ЄхёЄшЁютрэшх
+- ╨єўэюх ЄхёЄшЁютрэшх (ьшэєЄ): 30
+- └тЄюьрЄшчрЎш  (ьшэєЄ): 90
+
+## ╩ръ чряєёЄшЄ№
+1. ╟ряєёЄшЄ№ SUT фы  яхЁтющ чрфрўш: `java -jar artifacts/app-replan-delivery.jar`
+2. ╟ряєёЄшЄ№ SUT фы  тЄюЁющ чрфрўш: `java -jar artifacts/app-ibank.jar -P:profile=test`
+3. ┬√яюыэшЄ№ ЄхёЄ√: `./gradlew clean test`
