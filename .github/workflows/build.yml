@@ -19,12 +19,25 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      - name: Start SUT
+      - name: Start SUT and wait for it
         run: |
-          java -jar artifacts/app-replan-delivery.jar &
-          sleep 20
-          # проверяем, что приложение запустилось
-          curl -s http://localhost:9999 | head -5
+          # запускаем приложение и сохраняем логи в файл
+          java -jar artifacts/app-replan-delivery.jar > app.log 2>&1 &
+          APP_PID=$!
+          
+          # ждём до 30 секунд, пока приложение не запустится
+          for i in {1..30}; do
+            if curl -s http://localhost:9999 > /dev/null 2>&1; then
+              echo "✅ Приложение запустилось!"
+              break
+            fi
+            echo "⏳ Ждём... $i сек"
+            sleep 1
+          done
+          
+          # выводим логи приложения
+          echo "===== ЛОГИ ПРИЛОЖЕНИЯ ====="
+          cat app.log
 
       - name: Run tests
         run: ./gradlew test -Dselenide.headless=true --info
