@@ -22,7 +22,9 @@ jobs:
       - name: Start SUT
         run: |
           java -jar artifacts/app-replan-delivery.jar &
-          sleep 10
+          sleep 20
+          # проверяем, что приложение запустилось
+          curl -s http://localhost:9999 | head -5
 
       - name: Run tests
         run: ./gradlew test -Dselenide.headless=true --info
