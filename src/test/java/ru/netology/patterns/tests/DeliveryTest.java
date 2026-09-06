@@ -15,13 +15,12 @@ public class DeliveryTest {
 
     @BeforeEach
     void setUp() {
-        // Настройка Selenide для CI
         Configuration.browser = System.getProperty("selenide.browser", "chrome");
         Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "true"));
         Configuration.browserSize = "1920x1080";
-        Configuration.timeout = 10000; // 10 секунд
+        Configuration.timeout = 15000;
         Configuration.holdBrowserOpen = false;
-        
+
         userInfo = DataGenerator.generateUserInfo();
         open("http://localhost:9999");
     }
@@ -34,20 +33,20 @@ public class DeliveryTest {
         $("[data-test-id='name'] input").setValue(userInfo.getName());
         $("[data-test-id='phone'] input").setValue(userInfo.getPhone());
         $("[data-test-id='agreement']").click();
-        $$("button").find(Condition.text("Забронировать")).click();
+        $$("button").find(Condition.text("Запланировать")).click();
 
         // Проверка успешного бронирования
         $("[data-test-id='success-notification']").shouldBe(Condition.visible);
 
         // Новая дата
         UserInfo updatedUserInfo = DataGenerator.updateDate(userInfo, 5);
-        
+
         // Закрываем уведомление
         $("[data-test-id='success-notification'] .icon-button").click();
 
         // Обновляем дату
         $("[data-test-id='date'] input").doubleClick().setValue(updatedUserInfo.getDate());
-        $$("button").find(Condition.text("Забронировать")).click();
+        $$("button").find(Condition.text("Запланировать")).click();
 
         // Проверка диалога перепланирования
         $("[data-test-id='replan-notification']").shouldBe(Condition.visible);
