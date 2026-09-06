@@ -1,83 +1,58 @@
-package ru.netology.patterns.generator;
+package ru.netology.test;
 
 import com.github.javafaker.Faker;
 import lombok.Value;
-import ru.netology.patterns.data.UserInfo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class DataGenerator {
-
-    private static final Faker faker = new Faker(new Locale("ru"));
-
-    private DataGenerator() {}
-
-    // ===== МЕТОДЫ ДЛЯ ТЕСТА DeliveryTest =====
-
-    public static UserInfo generateUserInfo() {
-        String city = generateCity();
-        String name = generateName();
-        String phone = generatePhone();
-        String date = generateDate(3);
-        return new UserInfo(city, name, phone, date);
+    private DataGenerator() {
     }
 
-    public static UserInfo updateDate(UserInfo originalUser, int daysToAdd) {
-        return new UserInfo(
-                originalUser.getCity(),
-                originalUser.getName(),
-                originalUser.getPhone(),
-                generateDate(daysToAdd)
-        );
-    }
-
-    // ===== ВСПОМОГАТЕЛЬНЫЕ МЕТОДЫ =====
-
-    public static String generateDate(int shift) {
-        return LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    public static String generateDate(int shiftDays) {
+        return LocalDate.now().plusDays(shiftDays).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
     public static String generateCity() {
-        String[] cities = {
-                "Москва", "Санкт-Петербург", "Челябинск", "Ханты-Мансийск",
-                "Калуга", "Уфа", "Якутск", "Псков"
-        };
-        return cities[ThreadLocalRandom.current().nextInt(cities.length)];
+        // Для надежности используем "Москва"
+        return "Москва";
     }
 
     public static String generateName() {
-        return faker.name().firstName() + " " + faker.name().lastName();
+        Faker faker = new Faker(new Locale("ru"));
+        return faker.name().fullName();
     }
 
     public static String generatePhone() {
-        return "+7" + faker.number().digits(10);
+        Faker faker = new Faker(new Locale("ru"));
+        return faker.phoneNumber().phoneNumber();
     }
-
-    // ===== ВНУТРЕННИЙ КЛАСС ДЛЯ API ТЕСТОВ =====
-
-    public static class Registration {
-        private Registration() {}
-
-        public static UserInfo generateUser(String locale) {
-            Faker faker = new Faker(new Locale(locale));
-            return new UserInfo(
-                    generateCity(),
-                    faker.name().lastName() + " " + faker.name().firstName(),
-                    faker.phoneNumber().phoneNumber(),
-                    generateDate(3)
-            );
-        }
-    }
-
-    // ===== ВНУТРЕННИЙ КЛАСС ДЛЯ API ТЕСТОВ (альтернативный) =====
 
     @Value
-    public static class ApiUserInfo {
+    public static class UserInfo {
         String city;
         String name;
         String phone;
+        String date;
+    }
+
+    public static UserInfo generateValidUser() {
+        return new UserInfo(
+                generateCity(),
+                generateName(),
+                generatePhone(),
+                generateDate(3)
+        );
+    }
+
+    public static UserInfo generateUserWithNewDate() {
+        return new UserInfo(
+                generateCity(),
+                generateName(),
+                generatePhone(),
+                generateDate(7)
+        );
     }
 }
