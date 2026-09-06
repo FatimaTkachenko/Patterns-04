@@ -14,11 +14,8 @@ repositories {
 }
 
 dependencies {
-    // Selenide для UI-тестов
-    testImplementation 'com.codeborne:selenide:7.2.1'
-
-    // REST-assured — оставили, если вдруг понадобится
-    testImplementation 'io.rest-assured:rest-assured:5.5.0'
+    // Selenide для UI-тестов (версия, совместимая с Java 11)
+    testImplementation 'com.codeborne:selenide:6.19.1'
 
     // Faker для генерации данных
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
