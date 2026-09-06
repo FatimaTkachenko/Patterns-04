@@ -19,6 +19,21 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
+      - name: Install Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget unzip
+          wget -q "https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.126/linux64/chrome-linux64.zip"
+          wget -q "https://storage.googleapis.com/chrome-for-testing-public/126.0.6478.126/linux64/chromedriver-linux64.zip"
+          unzip -q chrome-linux64.zip
+          unzip -q chromedriver-linux64.zip
+          sudo mv chrome-linux64 /opt/chrome
+          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/
+          sudo chmod +x /usr/local/bin/chromedriver
+          sudo ln -s /opt/chrome/chrome /usr/local/bin/google-chrome
+          echo "Chrome version: $(google-chrome --version)"
+          echo "ChromeDriver version: $(chromedriver --version)"
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
