@@ -1,18 +1,15 @@
-[![Build Status](https://github.com/FatimaTkachenko/Patterns-04/actions/workflows/build.yml/badge.svg)](https://github.com/FatimaTkachenko/Patterns-04/actions/workflows/build.yml)
+# Р—Р°РєР°Р· РґРѕСЃС‚Р°РІРєРё РєР°СЂС‚С‹ (РїР°С‚С‚РµСЂРЅС‹)
 
-# Patterns Homework
+[![Build and Test](https://github.com/FatimaTkachenko/Patterns-04/actions/workflows/build.yml/badge.svg)](https://github.com/FatimaTkachenko/Patterns-04/actions/workflows/build.yml)
 
-## Задача №1: Заказ доставки карты (изменение даты)
-Автотест для проверки функции перепланирования встречи.
+РђРІС‚РѕС‚РµСЃС‚С‹ РґР»СЏ С„РѕСЂРјС‹ Р·Р°РєР°Р·Р° РґРѕСЃС‚Р°РІРєРё РєР°СЂС‚С‹ СЃ РїРµСЂРµРїР»Р°РЅРёСЂРѕРІР°РЅРёРµРј РґР°С‚С‹.
 
-## Задача №2: Тестовый режим
-Автотесты для API создания пользователей в тестовом режиме.
+РСЃРїРѕР»СЊР·СѓРµРјС‹Рµ РїР°С‚С‚РµСЂРЅС‹:
+- **Data Class** (Lombok)
+- **Utility / Generator class** (Faker)
+- **Page Object** (Selenide)
 
-## Время, затраченное на тестирование
-- Ручное тестирование (минут): 30
-- Автоматизация (минут): 90
-
-## Как запустить
-1. Запустить SUT для первой задачи: `java -jar artifacts/app-replan-delivery.jar`
-2. Запустить SUT для второй задачи: `java -jar artifacts/app-ibank.jar -P:profile=test`
-3. Выполнить тесты: `./gradlew clean test`
+## Р—Р°РїСѓСЃРє
+```bash
+java -jar artifacts/app-replan-delivery.jar &
+./gradlew test -Dselenide.headless=true
