@@ -6,8 +6,9 @@ group 'ru.netology'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 11
-compileJava.options.encoding = "UTF-8"
-compileTestJava.options.encoding = "UTF-8"
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
 
 repositories {
     mavenCentral()
@@ -16,6 +17,9 @@ repositories {
 dependencies {
     // Selenide для UI-тестов (версия, совместимая с Java 11)
     testImplementation 'com.codeborne:selenide:6.19.1'
+
+    // REST-assured — оставили, если вдруг понадобится
+    testImplementation 'io.rest-assured:rest-assured:5.5.0'
 
     // Faker для генерации данных
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
