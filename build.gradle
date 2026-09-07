@@ -6,39 +6,24 @@ group 'ru.netology'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 11
-compileJava.options.encoding = 'UTF-8'
-compileTestJava.options.encoding = 'UTF-8'
-tasks.withType(JavaCompile) { options.encoding = 'UTF-8' }
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    // Selenide для UI-тестов (версия, совместимая с Java 11)
-    testImplementation 'com.codeborne:selenide:6.19.1'
-
-    // REST-assured — оставили, если вдруг понадобится
+    testImplementation 'com.codeborne:selenide:6.16.0'
     testImplementation 'io.rest-assured:rest-assured:5.5.0'
-
-    // Faker для генерации данных
+    testImplementation 'com.google.code.gson:gson:2.10.1'
     testImplementation 'com.github.javafaker:javafaker:1.0.2'
-
-    // Lombok для упрощения кода
-    compileOnly 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
-    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+    testImplementation 'org.projectlombok:lombok:1.18.30'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
-
-    // JUnit 5
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
 }
 
 test {
     useJUnitPlatform()
     systemProperty 'selenide.headless', System.getProperty('selenide.headless')
-    testLogging {
-        events "passed", "skipped", "failed"
-        showStandardStreams = true
-    }
 }
