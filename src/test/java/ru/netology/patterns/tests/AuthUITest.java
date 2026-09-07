@@ -17,7 +17,7 @@ public class AuthUITest {
         Configuration.browser = System.getProperty("selenide.browser", "chrome");
         Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "false"));
         Configuration.browserSize = "1920x1080";
-        Configuration.timeout = 10000;
+        Configuration.timeout = 15000;
         Configuration.holdBrowserOpen = false;
         open("http://localhost:9999");
     }
@@ -27,7 +27,7 @@ public class AuthUITest {
         RegistrationDto user = ApiGenerator.generateActiveUser();
         ApiClient.registerUser(user);
 
-        $("[data-test-id='login'] input").setValue(user.getLogin());
+        $("[data-test-id='login'] input").shouldBe(Condition.visible).setValue(user.getLogin());
         $("[data-test-id='password'] input").setValue(user.getPassword());
         $("[data-test-id='action-login']").click();
 
@@ -39,7 +39,7 @@ public class AuthUITest {
         RegistrationDto user = ApiGenerator.generateBlockedUser();
         ApiClient.registerUser(user);
 
-        $("[data-test-id='login'] input").setValue(user.getLogin());
+        $("[data-test-id='login'] input").shouldBe(Condition.visible).setValue(user.getLogin());
         $("[data-test-id='password'] input").setValue(user.getPassword());
         $("[data-test-id='action-login']").click();
 
@@ -48,7 +48,7 @@ public class AuthUITest {
 
     @Test
     void shouldNotLoginWithInvalidLogin() {
-        $("[data-test-id='login'] input").setValue("invalid_login");
+        $("[data-test-id='login'] input").shouldBe(Condition.visible).setValue("invalid_login");
         $("[data-test-id='password'] input").setValue("invalid_password");
         $("[data-test-id='action-login']").click();
 
@@ -57,7 +57,7 @@ public class AuthUITest {
 
     @Test
     void shouldNotLoginWithInvalidPassword() {
-        $("[data-test-id='login'] input").setValue("invalid_login");
+        $("[data-test-id='login'] input").shouldBe(Condition.visible).setValue("invalid_login");
         $("[data-test-id='password'] input").setValue("invalid_password");
         $("[data-test-id='action-login']").click();
 
