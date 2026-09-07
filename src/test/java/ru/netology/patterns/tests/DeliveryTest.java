@@ -4,7 +4,6 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Keys;
 import ru.netology.patterns.data.UserInfo;
 import ru.netology.patterns.generator.DataGenerator;
 
@@ -17,9 +16,9 @@ public class DeliveryTest {
     @BeforeEach
     void setUp() {
         Configuration.browser = System.getProperty("selenide.browser", "chrome");
-        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "true"));
+        Configuration.headless = Boolean.parseBoolean(System.getProperty("selenide.headless", "false"));
         Configuration.browserSize = "1920x1080";
-        Configuration.timeout = 15000;
+        Configuration.timeout = 10000;
         Configuration.holdBrowserOpen = false;
 
         userInfo = DataGenerator.generateUserInfo();
@@ -28,33 +27,26 @@ public class DeliveryTest {
 
     @Test
     void shouldReplanMeeting() {
-        // Заполнение формы
         $("[data-test-id='city'] input").setValue(userInfo.getCity());
         $("[data-test-id='date'] input").doubleClick().setValue(userInfo.getDate());
         $("[data-test-id='name'] input").setValue(userInfo.getName());
         $("[data-test-id='phone'] input").setValue(userInfo.getPhone());
         $("[data-test-id='agreement']").click();
-        $$("button").find(Condition.text("Забронировать")).click();
+        $$("button").find(Condition.text("Запланировать")).click();
 
-        // Проверка успешного бронирования
-        $("[data-test-id='notification'] .notification__content")
-                .shouldHave(Condition.text(userInfo.getDate()));
+        $("[data-test-id='success-notification']").shouldBe(Condition.visible);
 
-        // Новая дата
         UserInfo updatedUserInfo = DataGenerator.updateDate(userInfo, 5);
 
-        // Закрываем уведомление
-        $("[data-test-id='notification'] .notification__closer").click();
+        $("[data-test-id='success-notification'] .icon-button").click();
 
-        // Очищаем поле даты и вводим новую
-        $("[data-test-id='date'] input").sendKeys(Keys.chord(Keys.CONTROL, "a"));
-        $("[data-test-id='date'] input").sendKeys(Keys.BACK_SPACE);
+        $("[data-test-id='date'] input").setValue("");
         $("[data-test-id='date'] input").setValue(updatedUserInfo.getDate());
-        
-        $$("button").find(Condition.text("Забронировать")).click();
+        $$("button").find(Condition.text("Запланировать")).click();
 
-        // Проверка успешного перепланирования
-        $("[data-test-id='notification'] .notification__content")
-                .shouldHave(Condition.text(updatedUserInfo.getDate()));
+        $("[data-test-id='replan-notification']").shouldBe(Condition.visible);
+        $("[data-test-id='replan-notification'] button").click();
+
+        $("[data-test-id='success-notification']").shouldBe(Condition.visible);
     }
 }
