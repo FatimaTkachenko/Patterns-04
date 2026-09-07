@@ -1,7 +1,6 @@
 # Заказ доставки карты (паттерны)
 
 [![Build and Test](https://github.com/FatimaTkachenko/Patterns-04/actions/workflows/build.yml/badge.svg)](https://github.com/FatimaTkachenko/Patterns-04/actions/workflows/build.yml)
-
 Автотесты для формы заказа доставки карты с перепланированием даты.
 
 Используемые паттерны:
