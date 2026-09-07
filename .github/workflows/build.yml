@@ -26,12 +26,6 @@ jobs:
         with:
           chrome-version: stable
 
-      - name: Download SUT JAR for Delivery
-        run: |
-          mkdir -p artifacts
-          curl -L -o artifacts/app-replan-delivery.jar https://github.com/netology-code/aqa-homeworks/raw/api-ci/patterns/app-replan-delivery.jar
-          ls -la artifacts/
-
       - name: Start SUT for Delivery
         run: |
           nohup java -jar artifacts/app-replan-delivery.jar &
@@ -65,12 +59,6 @@ jobs:
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: stable
-
-      - name: Download SUT JAR for IBank
-        run: |
-          mkdir -p artifacts
-          curl -L -o artifacts/app-ibank.jar https://github.com/netology-code/aqa-homeworks/raw/api-ci/patterns/app-ibank.jar
-          ls -la artifacts/
 
       - name: Start SUT for IBank
         run: |
